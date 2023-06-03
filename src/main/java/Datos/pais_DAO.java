@@ -40,8 +40,6 @@ public class pais_DAO extends Conexion{
         PreparedStatement ps= null;
         Connection con = getConexion();
 
-        //String sql = "delete from citas where (pacientes.nombre).NomComp = ? AND (pacientes.nombre).Paterno = ? AND (pacientes.nombre).Materno = ?";
-
         String sql = "delete from pais where ID_P=?";
 
         try {
@@ -69,7 +67,7 @@ public class pais_DAO extends Conexion{
         ResultSet rs = null;
 
         String sql = "select * from pais";
-        List<pais_JB> Allpacientes = new ArrayList<pais_JB>();
+        List<pais_JB> Allpais = new ArrayList<pais_JB>();
         //Pacientes_JB paci = new Pacientes_JB();
 
 
@@ -108,7 +106,7 @@ public class pais_DAO extends Conexion{
                 pais.setCantidad_clubes(cantidad_club);
 
 
-                Allpacientes.add(pais);
+                Allpais.add(pais);
 
             }
             close(rs);
@@ -122,7 +120,7 @@ public class pais_DAO extends Conexion{
         }
 
         //Allpacientes.forEach(System.out::println);
-        return Allpacientes;
+        return Allpais;
     }
 
     public boolean modificar(pais_JB pais){

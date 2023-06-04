@@ -148,7 +148,7 @@ public class participante_DAO extends Conexion{
         PreparedStatement ps= null;
         Connection con = getConexion();
 
-        String sql = "update pais set curp = ?, nombre = ROW(?,?,?), campeonatos_play = ?, r_nacionalidad = ?, edad = ?, peso = ?, altura = ? where id_p = ?";
+        String sql = "update participante set curp = ?, nombre = ROW(?,?,?), campeonatos_play = ?, r_nacionalidad = ?, edad = ?, peso = ?, altura = ? where id_p = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, partiJB.getCurp());

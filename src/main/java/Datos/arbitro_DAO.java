@@ -1,6 +1,6 @@
 package Datos;
 
-import Modelo.jugador_JB;
+import Modelo.arbitro_JB;
 import Modelo.participante_JB;
 
 import java.sql.Connection;
@@ -12,47 +12,50 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class participante_DAO extends Conexion{
+public class arbitro_DAO extends Conexion{
 
-    public boolean registrar(participante_JB partiJB) {
+    public boolean registrar(arbitro_JB arbiJB) {
         PreparedStatement ps= null;
         Connection con = getConexion();
         System.out.println();
 
-        String sql = "INSERT INTO pais (Curp, Nombre, Campeonatos_play, r_nacionalidad, edad, peso, altura) VALUES (?,ROW(?,?,?),?,?,?,?,?)";
+        String sql = "INSERT INTO pais (Curp, Nombre, Campeonatos_play, r_nacionalidad, edad, peso, altura, direccion, tel_contac) VALUES (?,ROW(?,?,?),?,?,?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, partiJB.getCurp());
-            ps.setString(2, partiJB.getNombre());
-            ps.setString(3, partiJB.getAp_paterno());
-            ps.setString(4, partiJB.getAp_materno());
-            ps.setInt(5, partiJB.getCampeonatos_jug());
-            ps.setInt(6, partiJB.getR_nacionalidad());
-            ps.setInt(7, partiJB.getEdad());
-            ps.setFloat(8, partiJB.getPeso());
-            ps.setFloat(9, partiJB.getAltura());
+            ps.setString(1, arbiJB.getCurp());
+            ps.setString(2, arbiJB.getNombre());
+            ps.setString(3, arbiJB.getAp_paterno());
+            ps.setString(4, arbiJB.getAp_materno());
+            ps.setInt(5, arbiJB.getCampeonatos_jug());
+            ps.setInt(6, arbiJB.getR_nacionalidad());
+            ps.setInt(7, arbiJB.getEdad());
+            ps.setFloat(8, arbiJB.getPeso());
+            ps.setFloat(9, arbiJB.getAltura());
+            ps.setString(10, arbiJB.getDireccion());
+            ps.setString(11, arbiJB.getTel_contac());
 
             ps.execute();
+
 
             close(ps);
             close(con);
             return true;
 
         } catch (SQLException ex) {
-            Logger.getLogger(participante_JB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(arbitro_JB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
-    public boolean eliminar_PorUser(String partiJB) {
+    public boolean eliminar_PorUser(String arbiJB) {
         PreparedStatement ps= null;
         Connection con = getConexion();
 
-        String sql = "delete from participante where CURP = ?";
+        String sql = "delete from arbitro where CURP = ?";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, Integer.parseInt(partiJB));
+            ps.setInt(1, Integer.parseInt(arbiJB));
 
 
             ps.execute();
@@ -69,13 +72,13 @@ public abstract class participante_DAO extends Conexion{
         }
     }
 
-    public List<participante_JB> SelectAll (){
+    public List<arbitro_JB> SelectAll (){
         PreparedStatement ps= null;
         Connection con = getConexion();
         ResultSet rs = null;
 
         String sql = "select * from participante";
-        List<participante_JB> Allparticipante = new ArrayList<participante_JB>();
+        List<arbitro_JB> Allparticipante = new ArrayList<arbitro_JB>();
 
         try {
             ps = con.prepareStatement(sql);
@@ -83,7 +86,7 @@ public abstract class participante_DAO extends Conexion{
             rs = ps.executeQuery();
 
             while (rs.next()){
-                participante_JB partiJB = new participante_JB();
+                arbitro_JB arbiJB = new arbitro_JB();
 
                 String curp = rs.getString(1);
                 String nombre = rs.getString(2);
@@ -94,6 +97,9 @@ public abstract class participante_DAO extends Conexion{
                 int edad = rs.getInt(7);
                 float peso = rs.getFloat(8);
                 float altura = rs.getFloat(9);
+                String direccion = rs.getString(10);
+                String tel_contac = rs.getString(11);
+
 
                 /*int iaux = 0;
 
@@ -112,18 +118,20 @@ public abstract class participante_DAO extends Conexion{
                     }
                 }*/
 
-                partiJB.setCurp(curp);
-                partiJB.setNombre(nombre);
-                partiJB.setAp_paterno(ap_paterno);
-                partiJB.setAp_materno(ap_materno);
-                partiJB.setCampeonatos_jug(campeonatos_play);
-                partiJB.setR_nacionalidad(r_nacionalidad);
-                partiJB.setEdad(edad);
-                partiJB.setPeso(peso);
-                partiJB.setAltura(altura);
+                arbiJB.setCurp(curp);
+                arbiJB.setNombre(nombre);
+                arbiJB.setAp_paterno(ap_paterno);
+                arbiJB.setAp_materno(ap_materno);
+                arbiJB.setCampeonatos_jug(campeonatos_play);
+                arbiJB.setR_nacionalidad(r_nacionalidad);
+                arbiJB.setEdad(edad);
+                arbiJB.setPeso(peso);
+                arbiJB.setAltura(altura);
+                arbiJB.setDireccion(direccion);
+                arbiJB.setTel_contac(tel_contac);
 
 
-                Allparticipante.add(partiJB);
+                Allparticipante.add(arbiJB);
 
             }
             close(rs);
@@ -140,28 +148,30 @@ public abstract class participante_DAO extends Conexion{
         return Allparticipante;
     }
 
-    public boolean modificar(participante_JB partiJB){
+    public boolean modificar(arbitro_JB arbiJB){
         PreparedStatement ps= null;
         Connection con = getConexion();
 
-        String sql = "update participante set curp = ?, nombre = ROW(?,?,?), campeonatos_play = ?, r_nacionalidad = ?, edad = ?, peso = ?, altura = ? where id_p = ?";
+        String sql = "update arbitro set curp = ?, nombre = ROW(?,?,?), campeonatos_play = ?, r_nacionalidad = ?, edad = ?, peso = ?, altura = ?, direccion = ?, tel_contac = ? where curp = ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, partiJB.getCurp());
-            ps.setString(2, partiJB.getNombre());
-            ps.setString(3, partiJB.getAp_paterno());
-            ps.setString(4, partiJB.getAp_materno());
-            ps.setInt(5, partiJB.getCampeonatos_jug());
-            ps.setInt(6, partiJB.getR_nacionalidad());
-            ps.setInt(7, partiJB.getEdad());
-            ps.setFloat(8, partiJB.getPeso());
-            ps.setFloat(9, partiJB.getAltura());
+            ps.setString(1, arbiJB.getCurp());
+            ps.setString(2, arbiJB.getNombre());
+            ps.setString(3, arbiJB.getAp_paterno());
+            ps.setString(4, arbiJB.getAp_materno());
+            ps.setInt(5, arbiJB.getCampeonatos_jug());
+            ps.setInt(6, arbiJB.getR_nacionalidad());
+            ps.setInt(7, arbiJB.getEdad());
+            ps.setFloat(8, arbiJB.getPeso());
+            ps.setFloat(9, arbiJB.getAltura());
+            ps.setString(10, arbiJB.getDireccion());
+            ps.setString(11, arbiJB.getTel_contac());
 
             ps.execute();
 
             close(ps);
             close(con);
-            System.out.println("Entre al dao y realiza la modificación");
+            System.out.println("Entré al dao y realizé la modificación");
             return true;
 
         } catch (SQLException ex) {
@@ -169,4 +179,5 @@ public abstract class participante_DAO extends Conexion{
             return false;
         }
     }
+
 }

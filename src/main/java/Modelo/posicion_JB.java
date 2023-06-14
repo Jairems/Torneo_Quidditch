@@ -1,10 +1,19 @@
 package Modelo;
 
 public class posicion_JB {
+    private String ID;
     private String nombre_pos;
     private String descripcion;
 
     public posicion_JB() {
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getNombre_pos() {

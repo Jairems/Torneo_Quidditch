@@ -1,6 +1,8 @@
 package Modelo;
 
-public class estadio_JB {
+import java.io.Serializable;
+
+public class estadio_JB implements Serializable {
     private int capacidad;
     private int r_hotel;
 

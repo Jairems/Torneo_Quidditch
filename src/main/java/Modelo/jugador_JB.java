@@ -1,6 +1,8 @@
 package Modelo;
 
-public class jugador_JB extends participante_JB {
+import java.io.Serializable;
+
+public class jugador_JB extends participante_JB implements Serializable {
     private int nivel_juego;
     private int equipo_pertenece;
     private int r_posicion;

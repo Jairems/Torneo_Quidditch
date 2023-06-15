@@ -1,6 +1,8 @@
 package Modelo;
 
-public class hotel_JB {
+import java.io.Serializable;
+
+public class hotel_JB implements Serializable {
     private String RFC;
     private String nombre;
     private String direccion;

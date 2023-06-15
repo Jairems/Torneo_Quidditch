@@ -20,7 +20,7 @@
                     </li>
 
                     <li>
-                        <form class="center" action="" name="Participante_serv" method="get">
+                        <form class="center" action="/MundialQuidditch_Edicion_Nopal/Participante/create_participante.jsp" name="Participante_serv" method="get">
                             <input type="submit" value="Registrar Participante" name="seleccion">
                         </form>
                     </li>
@@ -45,7 +45,7 @@
 
             <li> <input value="Estadios" type="button">
                 <form class="center" action="">
-                    <input type="submit" value="Tutor">
+                    <input type="submit" value="">
                 </form>
             </li>
             <li><button></button></li>

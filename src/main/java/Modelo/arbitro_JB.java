@@ -1,6 +1,8 @@
 package Modelo;
 
-public class arbitro_JB extends participante_JB {
+import java.io.Serializable;
+
+public class arbitro_JB extends participante_JB implements Serializable {
     private String direccion;
     private String tel_contac;
 

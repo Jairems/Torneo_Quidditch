@@ -1,8 +1,9 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.util.SplittableRandom;
 
-public class jugadasprohibidas_JB {
+public class jugadasprohibidas_JB implements Serializable {
     private String nombre;
     private String comentario;
     private int r_partido;

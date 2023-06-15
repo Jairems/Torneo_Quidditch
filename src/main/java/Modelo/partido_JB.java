@@ -1,6 +1,8 @@
 package Modelo;
 
-public class partido_JB {
+import java.io.Serializable;
+
+public class partido_JB implements Serializable {
     private int r_ganador;
     private int r_estadio;
 

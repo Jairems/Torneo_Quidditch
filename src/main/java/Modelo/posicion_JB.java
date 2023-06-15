@@ -1,6 +1,8 @@
 package Modelo;
 
-public class posicion_JB {
+import java.io.Serializable;
+
+public class posicion_JB implements Serializable {
     private String ID;
     private String nombre_pos;
     private String descripcion;
